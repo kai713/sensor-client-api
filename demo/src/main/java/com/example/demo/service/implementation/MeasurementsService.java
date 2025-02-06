@@ -5,7 +5,6 @@ import com.example.demo.entity.Sensor;
 import com.example.demo.repositories.MeasurementsRepository;
 import com.example.demo.service.interfaces.IMeasurementsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.exception.MeasureNotCreatedException;
@@ -15,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor
 public class MeasurementsService implements IMeasurementsService {
 
     private final SensorService sensorService;
@@ -38,7 +37,7 @@ public class MeasurementsService implements IMeasurementsService {
         if (sensorOptional.isPresent()) {
             measurements.setSensor(sensorOptional.get());
         } else {
-            throw new MeasureNotCreatedException("Cенсор с названием: " + measurements.getSensor().getName() + "не найден");
+            throw new MeasureNotCreatedException("Cенсор с названием: " + measurements.getSensor().getName() + " не найден");
         }
     }
 }
