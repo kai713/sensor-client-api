@@ -4,7 +4,6 @@ import com.example.demo.dto.*;
 import com.example.demo.entity.User;
 import com.example.demo.enums.UserRole;
 import com.example.demo.repositories.UserRepository;
-import com.example.demo.service.CustomUserDetailsService;
 import com.example.demo.service.interfaces.IRefreshTokenService;
 import com.example.demo.service.interfaces.IUserService;
 import com.example.demo.util.JWTUtils;
@@ -12,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -25,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication and authorization", description = "Эндпойнты авторизации")
 public class AuthController {
 
     private final IUserService userService;
@@ -122,7 +123,7 @@ public class AuthController {
 
         User user = userRepository.findByEmail(email).orElse(null);
 
-        if(user == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserDTO());
         }
 

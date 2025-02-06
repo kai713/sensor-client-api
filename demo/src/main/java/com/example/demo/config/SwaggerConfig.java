@@ -32,4 +32,12 @@ public class SwaggerConfig {
                 .pathsToMatch("/sensors/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi authenticationApi() {
+        return GroupedOpenApi.builder()
+                .group("authentication")
+                .pathsToMatch("/auth/**")
+                .build();
+    }
 }

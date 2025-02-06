@@ -16,7 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +31,9 @@ public class SensorController {
     private final ModelMapper modelMapper;
     private final SensorValidator sensorValidator;
 
-    @PostMapping("/add")
+    @PostMapping("/registration")
     @Operation(
-            summary = "Добавление сенсора если пользователь имеет роль ADMIN",
+            summary = "Добавление сенсора",
             description = "Добавляет новый сенсор",
             parameters = {
                     @Parameter(name = "name", description = "Название сенсора не может быть пустым, от 3 до 30 символов в названии", required = true, example = "Sensor 1"),
@@ -44,7 +43,6 @@ public class SensorController {
             @ApiResponse(responseCode = "200", description = "Сенсор успешно добавлен"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
     })
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<HttpStatus> save(@RequestBody @Valid SensorDTO sensorDTO, BindingResult result) {
         sensorValidator.validate(convertToSensor(sensorDTO), result);
         if (result.hasErrors()) {
