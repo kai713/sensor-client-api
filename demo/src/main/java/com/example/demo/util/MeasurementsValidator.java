@@ -2,8 +2,8 @@ package com.example.demo.util;
 
 
 import com.example.demo.entity.Measurements;
-import com.example.demo.service.MeasurementsService;
-import com.example.demo.service.SensorService;
+import com.example.demo.service.implementation.MeasurementsService;
+import com.example.demo.service.implementation.SensorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

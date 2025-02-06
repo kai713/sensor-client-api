@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface MeasurementsRepository extends JpaRepository<Measurements, Integer> {
-    Optional<Measurements> findBySensorName(String sensorName);
 }

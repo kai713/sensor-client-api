@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MeasurementsDTO;
 import com.example.demo.dto.MeasurementsResponse;
-import com.example.demo.service.MeasurementsService;
+import com.example.demo.service.implementation.MeasurementsService;
 import com.example.demo.exception.MeasureNotCreatedException;
 import com.example.demo.exception.MeasurementsErrorResponse;
 import com.example.demo.util.MeasurementsValidator;

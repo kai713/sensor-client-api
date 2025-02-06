@@ -1,8 +1,9 @@
-package com.example.demo.service;
+package com.example.demo.service.implementation;
 
 import com.example.demo.entity.Measurements;
 import com.example.demo.entity.Sensor;
 import com.example.demo.repositories.MeasurementsRepository;
+import com.example.demo.service.interfaces.IMeasurementsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class MeasurementsService {
+public class MeasurementsService implements IMeasurementsService {
 
     private final SensorService sensorService;
     private final MeasurementsRepository measurementsRepository;

@@ -1,7 +1,5 @@
 package com.example.demo.dto;
 
-
-import com.example.demo.entity.Sensor;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
