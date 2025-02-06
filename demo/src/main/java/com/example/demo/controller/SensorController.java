@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.dto.SensorDTO;
 
@@ -43,21 +43,24 @@ public class SensorController {
             @ApiResponse(responseCode = "200", description = "Сенсор успешно добавлен"),
             @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
     })
-    public ResponseEntity<HttpStatus> save(@RequestBody @Valid SensorDTO sensorDTO, BindingResult result) {
-        sensorValidator.validate(convertToSensor(sensorDTO), result);
-        if (result.hasErrors()) {
-            StringBuilder errors = new StringBuilder();
-            for (ObjectError error : result.getAllErrors()) {
-                errors.append(" - ").append(error.getDefaultMessage()).append(";");
+    public ResponseEntity<HttpStatus> save(@RequestBody @Valid SensorDTO sensorDTO, BindingResult bindingResult) {
+        sensorValidator.validate(convertToSensor(sensorDTO), bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            StringBuilder message = new StringBuilder();
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                message.append(" - ").append(fieldError.getDefaultMessage()).append(";");
             }
-            throw new SensorNotCreatedException(errors.toString());
+            throw new SensorNotCreatedException(message.toString());
         }
+
         sensorService.save(convertToSensor(sensorDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler
     public ResponseEntity<SensorErrorResponse> handleException(SensorNotCreatedException ex) {
+
         SensorErrorResponse sensorErrorResponse = new SensorErrorResponse(
                 ex.getMessage(),
                 System.currentTimeMillis()

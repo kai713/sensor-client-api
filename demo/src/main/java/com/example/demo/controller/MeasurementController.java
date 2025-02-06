@@ -66,6 +66,7 @@ public class MeasurementController {
     })
     public ResponseEntity<HttpStatus> save(@Parameter(description = "DTO измерения с данными о температуре, осадках и сенсоре") @RequestBody @Valid MeasurementsDTO measurementsDTO, BindingResult bindingResult) {
         measurementsValidator.validate(convertToMeasurements(measurementsDTO), bindingResult);
+
         if (bindingResult.hasErrors()) {
             StringBuilder message = new StringBuilder();
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -73,12 +74,14 @@ public class MeasurementController {
             }
             throw new MeasureNotCreatedException(message.toString());
         }
+
         measurementsService.save(convertToMeasurements(measurementsDTO));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler
     public ResponseEntity<MeasurementsErrorResponse> handleException(MeasureNotCreatedException ex) {
+
         MeasurementsErrorResponse errorResponse = new MeasurementsErrorResponse(
                 ex.getMessage(),
                 System.currentTimeMillis()

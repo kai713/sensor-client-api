@@ -4,8 +4,9 @@ import com.example.demo.entity.Measurements;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+/**
+ * Репозиторий для работы с сущностью Measurements
+ */
 @Repository
 public interface MeasurementsRepository extends JpaRepository<Measurements, Integer> {
 }

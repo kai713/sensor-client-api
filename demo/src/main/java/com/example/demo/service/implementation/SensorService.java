@@ -15,15 +15,27 @@ import java.util.Optional;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class SensorService implements ISensorService {
 
+    // Репозиторий для работы с сенсорами
     private final SensorRepository sensorRepository;
 
+    /**
+     * Находит сенсор по имени.
+     * @param name Имя сенсора
+     * @return Опционально возвращает найденный сенсор
+     */
     public Optional<Sensor> getSensorByName(String name) {
+        // Поиск сенсора в репозитории по имени
         Optional<Sensor> sensor = sensorRepository.findByName(name);
         return sensor;
     }
 
+    /**
+     * Сохраняет новый или обновляет существующий сенсор в базе данных.
+     * @param sensor Сенсор, который нужно сохранить
+     */
     @Transactional
     public void save(Sensor sensor) {
+        // Сохранение сенсора в базе данных
         sensorRepository.save(sensor);
     }
 }
